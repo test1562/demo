@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Accelerating Autoregressive Zero-Shot TTS</title>
+<meta name="generator" content="Jekyll v3.9.0">
+<meta property="og:title" content="TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Accelerating Autoregressive Zero-Shot TTS">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<!-- End Jekyll SEO tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1023.0" data-gr-ext-installed="">
+    <section class="page-header">
+    <!-- <h1 class="project-name"></h1>
+    <h2 class="project-tagline"></h2> -->
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id=""><center>TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Accelerating Autoregressive Zero-Shot TTS</center></h1>
+      <!-- <h1 id=""><center> Evaluation </center></h1> -->
+      
+
+<!-- <center> <b>| Anonymous | </b> </center> -->
+
+
+
+<h2 id="abstract">Abstract</h2>
+<p>
+Autoregressive (AR) language models combined with discrete speech tokens have significantly advanced zero-shot text-to-speech (TTS) synthesis. However, speech tokens are typically longer than text for the same textual content, slowing down the synthesis speed.
+Compressing token length improves speed but degrades quality, while high token rates preserve quality at the cost of slower inference. We propose TokenFormer, a novel model that bridges short discrete tokens and extended continuous features. By storing partial token information within its model parameters, TokenFormer enables speech representations to capture both long-continuous and short-discrete dependencies. The AR generator with TokenFormer conditions on more adequate prompts and reduces the prediction steps, accelerating autoregressive synthesis while maintaining high-quality output.
+Experiments on LibriTTS demonstrate our method's effectiveness.
+</p>
+
+<h2><p class="toc_title">Contents</p></h2>
+<div id="toc_container">
+<ul>
+  <li><a href="#1">Model Architecture</a></li>
+  <li><a href="#2">Comparison Experiments</a></li>
+  <li><a href="#3">Ablation Study</a></li>
+</ul>
+</div>
+
+<a name="1"><h2>Model Architecture</h2></a>
+<div>
+  <br />
+  <p style="text-align: center">
+    <img src="1_1_00.jpg"/>
+  </p>
+  <p>
+  <figcaption style="text-align:center;">
+    </font>
+    <font size=3>
+      Figure 1: Comparison Between Previous and Proposed Zero-Shot TTS Frameworks Using Autoregressive Generators.
+    </font>
+  </figcaption><br><br>
+  </p>
+
+  <br />
+  <p style="text-align: center">
+    <img src="1_2_00.jpg" />
+  </p>
+  <p>
+  <figcaption style="text-align:center;">
+    </font>
+    <font size=3>
+      Figure 2: Overview of the Training Process for TokenFormer. For clarity, here is an illustration of a single RVQ layer. The full Hierarchical RVQ Encoder processes the 2304-dimensional vector by splitting it into three 768-dimensional vectors, each quantized by a 3-level RVQ, resulting in a 3×3 code matrix.
+    </font>
+  </figcaption><br><br>
+  </p>
+    <br />
+  <p style="text-align: center">
+    <img src="1_3_00.jpg" />
+  </p>
+  <p>
+  <figcaption style="text-align:center;">
+    </font>
+    <font size=3>
+      Figure 3: Overview of Autoregressive Generators with TokenFormer
+(A) Training Process Diagram
+(B) Inference Process Diagram
+    </font>
+  </figcaption><br><br>
+  </p>
+</div>
+<a name="2"><h2>Comparison Experiments</h2></a>
+<p>
+  <li>The audio sample below is a sample synthesized using the model proposed in this paper.</li>
+  <li>The LibriTTS dataset is used, you can download it via https://www.openslr.org/60/.</li>
+  <li>LibriTTS is a multi-speaker English corpus. It amounts to 585 hours and over 2300 speakers. Train-clean-100, train-clean-360, and train-other-500 are merged as the training set. Dev-clean and dev-other are merged as a development set. Test-clean and test-other are merged as the test set. </li>
+            <li>Each comparison experiment model sources are listed below:</li>
+                <ul>
+                    <li>VALL-E: https://github.com/lifeiteng/VALL-E</li>
+                    <li>CosyVoice: https://github.com/FunAudioLLM/CosyVoice</li>
+                          <li>UniAudio: https://github.com/yangdongchao/UniAudio</li>
+                          <li>GPT-Talker: https://github.com/walker-hyf/GPT-Talker</li>
+                </ul>
+        </ul>
+<h3>Sample for Seen Speaker - Development Set</h3>
+<h4>Sample 1</h4>
+<p>Text: If we had one real critic in London-but what can one expect?,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1462_170138_000005_000004/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1462_170138_000005_000004/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1462_170138_000005_000004/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1462_170138_000005_000004/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1462_170138_000005_000004/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1462_170138_000005_000004/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 2</h4>
+<p>Text: As soon as they beheld the twilight of sense and heresy, they started, measured back their steps, and were again involved in the gloom of impenetrable orthodoxy.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1673_143396_000017_000009/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1673_143396_000017_000009/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1673_143396_000017_000009/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1673_143396_000017_000009/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1673_143396_000017_000009/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/1673_143396_000017_000009/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 3</h4>
+<p>Text: The Author wishes it to be understood that Erewhon is pronounced as a word of three syllables, all short-thus, E re whon.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/2412_153947_000014_000000/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/2412_153947_000014_000000/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/2412_153947_000014_000000/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/2412_153947_000014_000000/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/2412_153947_000014_000000/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/2412_153947_000014_000000/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 4</h4>
+<p>Text: The paternal parent has a right to his infants, no doubt." That was Bozzle's law.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/3536_8226_000013_000002/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/3536_8226_000013_000002/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/3536_8226_000013_000002/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/3536_8226_000013_000002/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/3536_8226_000013_000002/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/3536_8226_000013_000002/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 5</h4>
+<p>Text: And Mr Ossipon brings every week a pile of these f p tracts to sell at a halfpenny each.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/777_126732_000076_000004/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/777_126732_000076_000004/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/777_126732_000076_000004/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/777_126732_000076_000004/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/777_126732_000076_000004/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-compare/777_126732_000076_000004/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br>
+
+<br>
+      <h3>Sample for Unseen Speaker - Test Set</h3>
+
+<h4>Sample 1</h4>
+<p>Text: So choose for yourself-to make a rush or tarry here.",</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/1320_122617_000055_000003/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/1320_122617_000055_000003/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/1320_122617_000055_000003/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/1320_122617_000055_000003/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/1320_122617_000055_000003/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/1320_122617_000055_000003/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 2</h4>
+<p>Text: They met a good many acquaintances; Mainhall, indeed, knew almost every one, and he babbled on incontinently, screwing his small head about over his high collar.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2271_000009_000001/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2271_000009_000001/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2271_000009_000001/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2271_000009_000001/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2271_000009_000001/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2271_000009_000001/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 3</h4>
+<p>Text: The first was-sort of in play, wasn't it?",</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2275_000027_000001/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2275_000027_000001/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2275_000027_000001/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2275_000027_000001/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2275_000027_000001/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/4446_2275_000027_000001/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 4</h4>
+<p>Text: "Nothing whatever," replied the courtier, as pale as death; "but your majesty has not thought of Fruits.",</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>VALL-E</strong></th>
+      <th style="text-align: center"><strong>CosyVoice</strong></th>
+            <th style="text-align: center"><strong>UniAudio</strong></th>
+            <th style="text-align: center"><strong>GPT-Talker</strong></th>
+      <th style="text-align: center"><strong>TokenFormer</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/7127_75946_000043_000000/6.wav" controls="" preload=""></audio></td>
+   <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/7127_75946_000043_000000/5.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/7127_75946_000043_000000/8.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/7127_75946_000043_000000/2.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/7127_75946_000043_000000/4.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-compare/7127_75946_000043_000000/3.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br>
+
+<br>
+
+
+      <a name="3"><h2>Ablation Study</h2></a>
+<p>
+  <li>Ablation studies are performed to evaluate the effectiveness of the sequence compression encoding and feature loss in the TokenFormer framework. </li>
+  <li><b>-w/o TokenFormer</b> refers to training the AR generator with the compress tokens alone, without using TokenFormer.</li>
+    <li><b>-w/o Loss Features</b> refers to training the AR generator with TokenFormer but without the feature loss component.</li>
+</p>
+<h3>Sample for Seen Speaker - Development Set</h3>
+
+<h4>Sample 1</h4>
+<p>Text: He had stolen out during the half hour allowed at the works for tea, to buy them an orange or two, which now puffed out his jacket pocket.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/1993_147149_000034_000004/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/1993_147149_000034_000004/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/1993_147149_000034_000004/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 2</h4>
+<p>Text: I was walking backward, in a crouching position, when I heard Antonia scream.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/2035_147960_000005_000002/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/2035_147960_000005_000002/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/2035_147960_000005_000002/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 3</h4>
+<p>Text: It was the afternoon of a holiday, and she had closed early.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/6295_64301_000002_000001/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/6295_64301_000002_000001/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-dev-ablation/6295_64301_000002_000001/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br>
+<br>
+      <h3>Sample for Unseen Speaker - Test Set</h3>
+
+<h4>Sample 1</h4>
+<p>Text: But, sir, how shall I find a teacher?,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/3729_6852_000081_000001/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/3729_6852_000081_000001/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/3729_6852_000081_000001/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 2</h4>
+<p>Text: A young lady quietly joined the party at the supper table.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/5142_36377_000011_000001/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/5142_36377_000011_000001/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/5142_36377_000011_000001/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 3</h4>
+<p>Text: Yet were they little worse than what were insisted on before the battle of Naseby.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/8224_274384_000017_000002/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/8224_274384_000017_000002/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/8224_274384_000017_000002/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br><h4>Sample 4</h4>
+<p>Text: A ring of amethyst I could not wear here, plainer to my sight, Than that first kiss.,</b></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Groundtruth</strong></th>
+      <th style="text-align: center"><strong>Proposed</strong></th>
+      <th style="text-align: center"><strong> refers to training the AR generator with TokenFormer but without the feature loss component.</strong></th>
+      <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/908_31957_000017_000001/6.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="proposed-demo" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/908_31957_000017_000001/7.wav" controls="" preload=""></audio></td>
+      <td style="text-align: left"><audio src="tokenformer/libritts-test-ablation/908_31957_000017_000001/1.wav" controls="" preload=""></audio></td>
+  </tbody>
+</table>
+<br>
+
+<br>
+<br>
+
+    </section>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
