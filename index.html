@@ -3,7 +3,7 @@
    
 
 <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Enhancing Autoregressive Zero-Shot TTS</title>
+<title>BridgeCode: A Dual Speech Representation Paradigm for Autoregressive Zero-Shot Text-to-Speech Synthesis</title>
 <meta name="generator" content="Jekyll v3.9.0">
 <meta property="og:title" content="TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Accelerating Autoregressive Zero-Shot TTS">
 <meta property="og:locale" content="en_US">
@@ -22,7 +22,7 @@
     </section>
 
     <section class="main-content">
-      <h1 id=""><center>TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Enhancing Autoregressive Zero-Shot TTS</center></h1>
+      <h1 id=""><center>BridgeCode: A Dual Speech Representation Paradigm for Autoregressive Zero-Shot Text-to-Speech Synthesis</center></h1>
       <!-- <h1 id=""><center> Evaluation </center></h1> -->
       
 
@@ -32,9 +32,7 @@
 
 <h2 id="abstract">Abstract</h2>
 <p>
-Autoregressive (AR) language models with discrete speech tokens have advanced zero-shot text-to-speech (TTS) synthesis. However, speech token sequences are typically much longer than their corresponding text, requiring more AR inference steps. It not only slows synthesis but also exacerbates error accumulation, increasing word error rates (WER). Directly reducing token length degrades speech quality, presenting a fundamental efficiency-stability trade-off.
-We propose TokenFormer, a novel model that bridges short discrete tokens and extended continuous features. TokenFormer enables speech representations to capture both long-continuous and short-discrete dependencies. By leveraging TokenFormer's enhanced conditioning and reduced prediction steps, the AR generator achieves significantly improved synthesis stability through minimized error propagation in the AR process.
-Experiments demonstrate our method's effectiveness.
+Autoregressive (AR) frameworks have recently achieved remarkable progress in zero-shot text-to-speech (TTS) by leveraging discrete speech tokens and large language model techniques. Despite their success, existing AR-based zero-shot TTS systems face two critical limitations: (i) an inherent speed–quality trade-off, as sequential token generation either reduces frame rates at the cost of expressiveness or enriches tokens at the cost of efficiency, and (ii) a text-oriented supervision mismatch, as cross-entropy loss penalizes token errors uniformly without considering the fine-grained acoustic similarity among adjacent tokens. To address these challenges, we propose \textbf{BridgeTTS}, a novel AR-TTS framework built upon the dual speech representation paradigm \textbf{BridgeCode}. BridgeTTS reduces AR iterations by predicting sparse tokens while reconstructing rich continuous features for high-quality synthesis. Joint optimization of token-level and feature-level objectives further enhances naturalness and intelligibility. Experiments demonstrate that BridgeTTS achieves competitive quality and speaker similarity while significantly accelerating synthesis. Speech demos are available at https://test1562.github.io/demo/.
 </p>
 
 <h2><p class="toc_title">Contents</p></h2>
@@ -56,7 +54,7 @@ Experiments demonstrate our method's effectiveness.
   <figcaption style="text-align:center;">
     </font>
     <font size=3>
-      Figure 1: Comparison Between Previous and Proposed Zero-Shot TTS Frameworks Using Autoregressive Generators.
+      Figure 1: Comparison Between Previous and Proposed BridgeTTS Frameworks Using Autoregressive Generators.
     </font>
   </figcaption><br><br>
   </p>
@@ -69,7 +67,7 @@ Experiments demonstrate our method's effectiveness.
   <figcaption style="text-align:center;">
     </font>
     <font size=3>
-      Figure 2: Overview of the Training Process for TokenFormer. For clarity, here is an illustration of a single RVQ layer. The full Hierarchical RVQ Encoder processes the 2304-dimensional vector by splitting it into three 768-dimensional vectors, each quantized by a 3-level RVQ, resulting in a 3×3 code matrix.
+      Figure 2: Overview of the Training Process for BridgeCode.
     </font>
   </figcaption><br><br>
   </p>
@@ -81,9 +79,7 @@ Experiments demonstrate our method's effectiveness.
   <figcaption style="text-align:center;">
     </font>
     <font size=3>
-      Figure 3: Overview of Autoregressive Generators with TokenFormer
-(A) Training Process Diagram
-(B) Inference Process Diagram
+      Figure 3: Overview of the proposed BridgeTTS. (A) Training Process Diagram. (B) Inference Process Diagram.
     </font>
   </figcaption><br><br>
   </p>
