@@ -5,7 +5,7 @@
 <!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>BridgeCode: A Dual Speech Representation Paradigm for Autoregressive Zero-Shot Text-to-Speech Synthesis</title>
 <meta name="generator" content="Jekyll v3.9.0">
-<meta property="og:title" content="TokenFormer: Bridging Short Discrete Tokens and Extended Continuous Features for Accelerating Autoregressive Zero-Shot TTS">
+<meta property="og:title" content="BridgeCode: A Dual Speech Representation Paradigm for Autoregressive Zero-Shot Text-to-Speech Synthesis">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <!-- End Jekyll SEO tag -->
@@ -17,14 +17,14 @@
     <section class="page-header">
     <!-- <h1 class="project-name"></h1>
     <h2 class="project-tagline"></h2> -->
-      
-      
+
+
     </section>
 
     <section class="main-content">
       <h1 id=""><center>BridgeCode: A Dual Speech Representation Paradigm for Autoregressive Zero-Shot Text-to-Speech Synthesis</center></h1>
       <!-- <h1 id=""><center> Evaluation </center></h1> -->
-      
+
 
 <!-- <center> <b>| Anonymous | </b> </center> -->
 
@@ -108,7 +108,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -131,7 +131,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -154,7 +154,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -177,7 +177,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -200,7 +200,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -228,7 +228,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -251,7 +251,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -274,7 +274,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -297,7 +297,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
       <th style="text-align: center"><strong>CosyVoice</strong></th>
             <th style="text-align: center"><strong>UniAudio</strong></th>
             <th style="text-align: center"><strong>GPT-Talker</strong></th>
-      <th style="text-align: center"><strong>TokenFormer</strong></th>
+      <th style="text-align: center"><strong>BridgeTTS</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -317,9 +317,9 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
 
       <a name="3"><h2>Ablation Study</h2></a>
 <p>
-  <li>Ablation studies are performed to evaluate the effectiveness of the sequence compression encoding and feature loss in the TokenFormer framework. </li>
-  <li><b>-w/o TokenFormer</b> refers to training the AR generator with the compress tokens alone, without using TokenFormer.</li>
-    <li><b>-w/o Loss Features</b> refers to training the AR generator with TokenFormer but without the feature loss component.</li>
+  <li>Ablation studies are performed to evaluate the effectiveness of the sequence compression encoding and feature loss in the DenseBridge framework. </li>
+  <li><b>-w/o DenseBridge</b> refers to training the AR generator with the compress tokens alone, without using DenseBridge.</li>
+    <li><b>-w/o Loss Features</b> refers to training the AR generator with DenseBridge but without the feature loss component.</li>
 </p>
 <h3>Sample for Seen Speaker - Development Set</h3>
 
@@ -330,7 +330,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
@@ -349,7 +349,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
@@ -368,7 +368,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
@@ -391,7 +391,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
@@ -410,7 +410,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
@@ -429,7 +429,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
@@ -448,7 +448,7 @@ Autoregressive (AR) frameworks have recently achieved remarkable progress in zer
     <tr>
       <th style="text-align: center"><strong>Groundtruth</strong></th>
       <th style="text-align: center"><strong>Proposed</strong></th>
-      <th style="text-align: center"><strong> -w/o TokenFormer</strong></th>
+      <th style="text-align: center"><strong> -w/o DenseBridge</strong></th>
       <th style="text-align: center"><strong>-w/o Loss Features</strong></th>
     </tr>
   </thead>
